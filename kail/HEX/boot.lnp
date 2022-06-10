@@ -1,0 +1,18 @@
+--cpu Cortex-M0+
+".\hex\system_hc32l13x.o"
+".\hex\interrupts_hc32l13x.o"
+".\hex\startup_hc32l13x.o"
+".\hex\bsp_time.o"
+".\hex\bsp_uart.o"
+".\hex\upgrade..o"
+".\hex\sysctrl.o"
+".\hex\ddl.o"
+".\hex\flash.o"
+".\hex\bt.o"
+".\hex\uart.o"
+".\hex\gpio.o"
+".\hex\main.o"
+--strict --scatter ".\HEX\boot.sct"
+--keep=*Handler --summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\boot.map" -o .\HEX\boot.axf
