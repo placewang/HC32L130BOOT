@@ -430,11 +430,11 @@ ARM Macro Assembler    Page 7
               00000200 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
-work --depend=.\hex\startup_hc32l13x.d -o.\hex\startup_hc32l13x.o -I.\RTE\_Targ
-et_1 -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include -IC:\Keil_v5\ARM\PACK\
-HDSC\HC32L136\1.0.0\Device\Include --predefine="__UVISION_VERSION SETA 524" --p
-redefine="_RTE_ SETA 1" --list=.\listings\startup_hc32l13x.lst startup_hc32l13x
-.s
+work --depend=.\hex\startup_hc32l13x.d -o.\hex\startup_hc32l13x.o -IC:\Users\ad
+min\Desktop\E723Boot\kail\RTE -IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include 
+-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include --predefine="__UVISION_VE
+RSION SETA 521" --predefine="_RTE_ SETA 1" --list=.\listings\startup_hc32l13x.l
+st startup_hc32l13x.s
 
 
 

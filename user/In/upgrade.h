@@ -1,23 +1,23 @@
 #ifndef _UPGRADE_H_
 #define _UPGRADE_H_
 
-#define DEFAULT_BAUD_RATE				115200//12500
+#define DEFAULT_BAUD_RATE				        115200//12500
 
-#define MAX_FLASH_ADDRESS				0x0000FFFF	// 内部FLASH总大小，64K
-#define FLASH_BYTES_PER_SECTOR			512			// 每个扇区的FLASH大小
+#define MAX_FLASH_ADDRESS				        0x0000FFFF	// 内部FLASH总大小，64K
+#define FLASH_BYTES_PER_SECTOR			    512			// 每个扇区的FLASH大小
 // FLASH 地址定义
-#define FLASH_BOOT_START_ADDRESS		0x00000000	// BOOT的起始地址，22个扇区
-#define FLASH_BOOT_STOP_ADDRESS			0x00002BFF	// BOOT的结束地址
-#define FLASH_APP_START_ADDRESS			0x00002C00	// APP的起始地址，52个扇区
-#define FLASH_APP_STOP_ADDRESS			0x000093FF	// APP的结束地址
+#define FLASH_BOOT_START_ADDRESS		    0x00000000	// BOOT的起始地址，22个扇区
+#define FLASH_BOOT_STOP_ADDRESS			    0x00002BFF	// BOOT的结束地址
+#define FLASH_APP_START_ADDRESS			    0x00002C00	// APP的起始地址，52个扇区
+#define FLASH_APP_STOP_ADDRESS			    0x000093FF	// APP的结束地址
 #define FLASH_APP_BACKUP_START_ADDRESS	0x00009400	// APP备份的起始地址，52个扇区
-#define FLASH_APP_BACKUP_STOP_ADDRESS	0x0000FBFF	// APP备份的结束地址
-#define FLASH_DATA_START_ADDRESS		0x0000FC00	// 保存数据的起始地址，2个扇区
-#define FLASH_DATA_STOP_ADDRESS			0x0000FFFF	// 保存数据的结束地址
+#define FLASH_APP_BACKUP_STOP_ADDRESS	  0x0000FBFF	// APP备份的结束地址
+#define FLASH_DATA_START_ADDRESS		    0x0000FC00	// 保存数据的起始地址，2个扇区
+#define FLASH_DATA_STOP_ADDRESS			    0x0000FFFF	// 保存数据的结束地址
 
 // 来自APP的配置信息
-#define CONFIG_BAUD_RATE_ADDRESS		0x0000FC64	// 波特率配置数据
-#define UPGRADE_FLAG_ADDRESS			0x0000FE00	// 升级标志，boot需要修改
+#define CONFIG_BAUD_RATE_ADDRESS		    0x0000FC64	// 波特率配置数据
+#define UPGRADE_FLAG_ADDRESS			      0x0000FE00	// 升级标志，boot需要修改
 
 struct CONFIG_BAUD
 {
@@ -29,9 +29,9 @@ struct CONFIG_BAUD
 
 
 // FLASH 升级标志
-#define CMD_UPGRADE_START				0xA050AA00	// 启动升级的标志
+#define CMD_UPGRADE_START				  0xA050AA00	// 启动升级的标志
 #define CMD_UPGRADE_RCVDATA				0xA050AA55	// 接收升级数据标志
-#define CMD_UPGRADE_BURN				0xA0505A5A	// 搬运数据标志
+#define CMD_UPGRADE_BURN				  0xA0505A5A	// 搬运数据标志
 #define CMD_UPGRADE_SUCCESS				0xA05055AA	// 升级完成标志
 
 // Xmodem的控制字符定义

@@ -48,55 +48,55 @@ Xmodem协议
 #include "flash.h"
 
 // 升级状态定义
-#define UPGRADE_STATUS_IDLE				0x00	// 空状态
-#define UPGRADE_STATUS_POWON			0x01	// 上电完成状态，发送上电完成，等待回复，进入强制升级；超时则进入APP
-#define UPGRADE_STATUS_UPGRADE_START	0x02	// 发送升级消息，等待回应
-#define UPGRADE_STATUS_XMODEM			0x03	// 进入XMODEM模式
-#define UPGRADE_STATUS_CRC_CEHCK		0x04	// CRC校验
-#define UPGRADE_STATUS_COPY_DATA		0x05	// 拷贝数据状态
-#define UPGRADE_STATUS_REBOOT			0x06	// 定时器超时后，系统重启
-#define UPGRADE_STATUS_JUMP_APP			0x07	// 定时器 超时后，跳转到APP
+#define UPGRADE_STATUS_IDLE				      0x00	// 空状态
+#define UPGRADE_STATUS_POWON			      0x01	// 上电完成状态，发送上电完成，等待回复，进入强制升级；超时则进入APP
+#define UPGRADE_STATUS_UPGRADE_START	  0x02	// 发送升级消息，等待回应
+#define UPGRADE_STATUS_XMODEM			      0x03	// 进入XMODEM模式
+#define UPGRADE_STATUS_CRC_CEHCK		    0x04	// CRC校验
+#define UPGRADE_STATUS_COPY_DATA		    0x05	// 拷贝数据状态
+#define UPGRADE_STATUS_REBOOT			      0x06	// 定时器超时后，系统重启
+#define UPGRADE_STATUS_JUMP_APP			    0x07	// 定时器 超时后，跳转到APP
 
 // Xmodem传输的状态机，目前只支持标准的协议，还不支持扩展协议
 // 接收数据，保存到FLASH_APP_BACKUP_START_ADDRESS的地址中
-#define XMODEM_STATUS_IDLE				0x00	// 空状态
+#define XMODEM_STATUS_IDLE				    0x00	// 空状态
 #define XMODEM_STATUS_NAK_WAIT_DATA		0x01	// 发送NAK等待数据状态
-#define XMODEM_STATUS_ACK_WAIT_DATA		0x02	// 发送NAK等待数据状态
-#define XMODEM_STATUS_RECV_DATA			0x03	// 接收数据包状态，1s超时为收包结束
-#define XMODEM_STATUS_CANCEL			0x04	// 取消传输
-#define XMODEM_STATUS_SUCCESS			0x05	// 传输完成
+#define XMODEM_STATUS_ACK_WAIT_DATA		0x02	// 发送ACK等待数据状态
+#define XMODEM_STATUS_RECV_DATA			  0x03	// 接收数据包状态，1s超时为收包结束
+#define XMODEM_STATUS_CANCEL			    0x04	// 取消传输
+#define XMODEM_STATUS_SUCCESS			    0x05	// 传输完成
 
-unsigned int G_flash_data[128];	// 保存的当前需要写到的FLASH中的数据
+unsigned int G_flash_data[128];	  // 保存的当前需要写到的FLASH中的数据
 
 struct UPGRADE_SUB
 {
-	unsigned char status;				// 当前状态
+	unsigned char status;				    // 当前状态
 	unsigned char retry_count;			// 剩余的重试次数，每次减
 	unsigned short retry_timer;			// 重试计时器，每次减
 	unsigned short recv_timer;			// 数据接收计时器，超时后认为一包结束，每次减
 	
 	unsigned char rx_buf[256];			// 接收到的包
-	unsigned char rx_buf_len;			// 当前的接收长度
+	unsigned char rx_buf_len;			  // 当前的接收长度
 	
 	// xmodem协议相关
 	unsigned char xmodem_status;		// xmodem传输的状态机
 	unsigned int flash_address;			// 当前操作的flash地址
-	unsigned int flash_max_address;		// 当前操作的最大flash地址
+	unsigned int flash_max_address;	// 当前操作的最大flash地址
 	unsigned int *flash_data_p;			// 当前收到的flash数据，每一个扇区512字节
-	unsigned short flash_data_len;		// 当前收到的flash数据长度
-	unsigned int recv_all_data_len;		// 收到的数据总长度
-	unsigned char next_sq;				// 下一个包的序号
+	unsigned short flash_data_len;	// 当前收到的flash数据长度
+	unsigned int recv_all_data_len;	// 收到的数据总长度
+	unsigned char next_sq;				  // 下一个包的序号
 }__attribute__((packed));
 
 struct UPGRADE_SUB G_upgrade_sub;
 
 struct XMODEM_MSG_SOH
 {
-	unsigned char cmd;					// 当前状态
-	unsigned char sequence;				// 序号
+	unsigned char cmd;					      // 当前状态
+	unsigned char sequence;				    // 序号
 	unsigned char sequence_inverse;		// 序号的反码
-	unsigned char data[128];			// 接收到的数据
-	unsigned char check;				// 校验和
+	unsigned char data[128];			    // 接收到的数据
+	unsigned char check;				      // 校验和
 }__attribute__((packed));
 
 typedef void (*pFunction)(void);
@@ -897,13 +897,13 @@ void UPgrade_retry_timer_deal(void)
 			{
 				G_upgrade_sub.retry_count--;
 				if (G_upgrade_sub.retry_count == 0)
-				{// 切换到跳转状态，等待跳转
+				{ // 切换到跳转状态，等待跳转
 					Upgrade_set_retry_timer(TIMEOUT_1S);
 					Upgrade_set_retry_count(1);
 					G_upgrade_sub.status = UPGRADE_STATUS_JUMP_APP;
 				}
 				else
-				{// 重发
+				{ // 重发
 					Upgrade_send_pow_on();
 					Upgrade_set_retry_timer(3 * TIMEOUT_1S);
 				}
@@ -992,7 +992,8 @@ void Upgrade_loop_2ms(void)
 	{
 		G_upgrade_sub.retry_timer--;
 		if (G_upgrade_sub.retry_timer == 0)
-		{// 超时
+		{
+			// 超时
 			UPgrade_retry_timer_deal();
 		}
 	}

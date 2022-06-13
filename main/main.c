@@ -6,13 +6,13 @@
 #include "upgrade.h"
 
 // 指示灯定义
-#define  LED0_PORT		(GpioPortC) 
-#define  LED0_PIN		(GpioPin13) 
+#define  LED0_PORT		  (GpioPortC) 
+#define  LED0_PIN		    (GpioPin13) 
 #define  LED0_TOGGLE()	(Gpio_GetInputIO(LED0_PORT, LED0_PIN))?(Gpio_ClrIO(LED0_PORT, LED0_PIN)):(Gpio_SetIO(LED0_PORT, LED0_PIN))
-#define  LED0_ON()  	(Gpio_ClrIO(LED0_PORT, LED0_PIN))
+#define  LED0_ON()  	  (Gpio_ClrIO(LED0_PORT, LED0_PIN))
 
 extern unsigned char G_timer_2ms_wr;
-unsigned char G_timer_2ms_rd;
+unsigned char        G_timer_2ms_rd;
 
 /*****************************************************************
 Systimeclk:
@@ -32,7 +32,7 @@ void Systimeclk(void)
     Sysctrl_SetXTHStableTime(SysctrlXthStableCycle16384);
     Sysctrl_ClkSourceEnable(SysctrlClkXTH, TRUE);
 		
-	stcPLLCfg.enInFreq    = SysctrlPllInFreq6_12MHz;         //XTH 8MHz
+	  stcPLLCfg.enInFreq    = SysctrlPllInFreq6_12MHz;         //XTH 8MHz
     stcPLLCfg.enOutFreq   = SysctrlPllOutFreq36_48MHz;       //PLL 输出48MHz
     stcPLLCfg.enPllClkSrc = SysctrlPllXthXtal;               //输入时钟源选择XTH
     stcPLLCfg.enPllMul    = SysctrlPllMul6;                  //8MHz x 6 = 48MHz
@@ -46,7 +46,7 @@ void Systimeclk(void)
     Sysctrl_ClkInit(&stcCfg);                                //< 系统时钟初始化
 		
     Sysctrl_SysClkSwitch(SysctrlClkPLL);							       //< 时钟切换
-	delay1ms(20);		
+		delay1ms(20);		
 }
 
 /*****************************************************************

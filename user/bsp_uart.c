@@ -114,20 +114,20 @@ void Uart0_init(uint32_t br)
 	Sysctrl_SetPeripheralGate(SysctrlPeripheralUart0,TRUE); ///<使能uart0模块时钟
 
 	///<UART Init
-	stcCfg.enRunMode        = UartMskMode1;              //模式
-	stcCfg.enStopBit        = UartMsk1bit;               //1bit停止位
-	//    stcCfg.enMmdorCk        = UartMskDataOrAddr;         //无检验
-	stcCfg.stcBaud.u32Baud  = br;                        //波特率
-	stcCfg.stcBaud.enClkDiv = UartMsk8Or16Div;           //通道采样分频配置
-	stcCfg.stcBaud.u32Pclk  = Sysctrl_GetPClkFreq();     //获得外设时钟（PCLK）频率值
-	Uart_Init(M0P_UART0, &stcCfg);                       //串口初始化
+	stcCfg.enRunMode        = UartMskMode1;                 //模式
+	stcCfg.enStopBit        = UartMsk1bit;                  //1bit停止位
+	//    stcCfg.enMmdorCk        = UartMskDataOrAddr;      //无检验
+	stcCfg.stcBaud.u32Baud  = br;                           //波特率
+	stcCfg.stcBaud.enClkDiv = UartMsk8Or16Div;              //通道采样分频配置
+	stcCfg.stcBaud.u32Pclk  = Sysctrl_GetPClkFreq();        //获得外设时钟（PCLK）频率值
+	Uart_Init(M0P_UART0, &stcCfg);                          //串口初始化
 	
 	///<UART中断使能
-	Uart_ClrStatus(M0P_UART0,UartRC);                   //清接收请求
-	//    Uart_ClrStatus(M0P_UART0,UartTC);             //清发送收请求
-	Uart_EnableIrq(M0P_UART0,UartRxIrq);                //使能串口接收中断
-	//    Uart_EnableIrq(M0P_UART0,UartTxIrq);          //使能串口发送收中断
-	EnableNvic(UART0_IRQn, IrqLevel0, TRUE);            //系统中断使能
+	Uart_ClrStatus(M0P_UART0,UartRC);                       //清接收请求
+	//    Uart_ClrStatus(M0P_UART0,UartTC);                 //清发送收请求
+	Uart_EnableIrq(M0P_UART0,UartRxIrq);                    //使能串口接收中断
+	//    Uart_EnableIrq(M0P_UART0,UartTxIrq);              //使能串口发送收中断
+	EnableNvic(UART0_IRQn, IrqLevel0, TRUE);                //系统中断使能
 	
 	Uart0_buf_init();
 }
