@@ -6,9 +6,10 @@
 #include "upgrade.h"
 
 // 指示灯定义
-#define  LED0_PORT           (GpioPortC) 
-#define  LED0_PIN            (GpioPin13) 
-#define  LED0_TOGGLE()       (Gpio_GetInputIO(LED0_PORT, LED0_PIN))?(Gpio_ClrIO(LED0_PORT, LED0_PIN)):(Gpio_SetIO(LED0_PORT, LED0_PIN))
+#define  LED0_PORT		(GpioPortC) 
+#define  LED0_PIN		(GpioPin13) 
+#define  LED0_TOGGLE()	(Gpio_GetInputIO(LED0_PORT, LED0_PIN))?(Gpio_ClrIO(LED0_PORT, LED0_PIN)):(Gpio_SetIO(LED0_PORT, LED0_PIN))
+#define  LED0_ON()  	(Gpio_ClrIO(LED0_PORT, LED0_PIN))
 
 extern unsigned char G_timer_2ms_wr;
 unsigned char G_timer_2ms_rd;
@@ -85,8 +86,6 @@ int main(void)
 {
 	unsigned short led_count = 0;
 	Systimeclk();
-//	Sysctrl_GetHClkFreq();
-//	Sysctrl_GetPClkFreq();	
 	Bsp_Init();
 
 	Upgrade_init();
@@ -101,7 +100,14 @@ int main(void)
 			if (led_count >= 50)
 			{
 				led_count = 0;
-				LED0_TOGGLE();
+				if (Upgrade_is_rebooting())
+				{
+					LED0_ON();
+				}
+				else
+				{
+					LED0_TOGGLE();
+				}
 			}
 			
 			Upgrade_loop_2ms();

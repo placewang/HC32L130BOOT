@@ -118,10 +118,47 @@ unsigned char FLASH_read(unsigned char *u32Addr)
 	 return *((volatile uint8_t*)u32Addr);
 }
 
+unsigned int FLASH_u32_read(unsigned int *u32Addr)
+{
+	 return *((volatile uint8_t*)u32Addr);
+}
+
+
+void Upgrade_sector_erase_carefull(unsigned int address)
+{
+	int i;
+	unsigned int read_data;
+
+	for (i = 0; i < 5; i++)
+	{
+		Flash_SectorErase(address);
+		read_data = FLASH_u32_read((unsigned int *)address);
+		if (read_data == 0xFFFFFFFF)
+		{
+			break;
+		}
+	}
+}
+
+void Upgrade_wirte_word_carefull(unsigned int address, unsigned int data)
+{
+	int i;
+	unsigned int read_data;
+	
+	for (i = 0; i < 5; i++)
+	{
+		Flash_WriteWord(address, data);
+		read_data = FLASH_u32_read((unsigned int *)address);
+		if (read_data == data)
+		{
+			break;
+		}
+	}
+}
+
 unsigned short CRC16Check(unsigned char* buf, unsigned int len)
 {
 	unsigned int i, j;
-	unsigned int k;
 	unsigned short usCRCReg;
 	unsigned char temp;
 
@@ -193,9 +230,9 @@ Upgrade_get_baud_rate:
 void Upgrade_update_upgrade_flag(unsigned int flag)
 {
 	// 扇区开始，先擦除
-	Flash_SectorErase(UPGRADE_FLAG_ADDRESS);
+	Upgrade_sector_erase_carefull(UPGRADE_FLAG_ADDRESS);
 	// 写标志位
-	Flash_WriteWord(UPGRADE_FLAG_ADDRESS, flag);
+	Upgrade_wirte_word_carefull(UPGRADE_FLAG_ADDRESS, flag);
 }
 
 /*****************************************************************
@@ -291,11 +328,11 @@ void Upgrade_sector_write(unsigned int address, unsigned int *data_p)
 	unsigned int i;
 	
 	// 扇区开始，先擦除
-	Flash_SectorErase(address);
+	Upgrade_sector_erase_carefull(address);
 	
 	for (i = 0; i < 128; i++)
 	{
-		Flash_WriteWord(address, *data_p);
+		Upgrade_wirte_word_carefull(address, *data_p);
 		address += 4;
 		data_p++;
 	}
@@ -398,7 +435,7 @@ void Upgrade_xmodem_recv_data(void)
 {
 	Upgrade_set_retry_timer(0);
 	Upgrade_set_retry_count(0);
-	Upgrade_set_recv_timer(TIMEOUT_1S);
+	Upgrade_set_recv_timer(TIMEOUT_100ms);
 	G_upgrade_sub.xmodem_status = XMODEM_STATUS_RECV_DATA;
 }
 
@@ -679,6 +716,11 @@ void Upgrade_message_deal(void)
 		default:
 			break;
 	}
+	
+	// 处理完后，长度清零
+	G_upgrade_sub.rx_buf_len = 0;
+	// 定时器清零
+	Upgrade_set_recv_timer(0);
 	return;
 }
 
@@ -741,7 +783,7 @@ void Upgrade_xmodem_data_deal(unsigned char data)
 			
 			if (G_upgrade_sub.rx_buf_len < sizeof(struct XMODEM_MSG_SOH))
 			{
-				Upgrade_set_recv_timer(TIMEOUT_1S);
+				Upgrade_set_recv_timer(TIMEOUT_100ms);
 				break;
 			}
 			
@@ -771,7 +813,7 @@ void Upgrade_data_deal(unsigned char data)
 			G_upgrade_sub.rx_buf[G_upgrade_sub.rx_buf_len] = data;
 			G_upgrade_sub.rx_buf_len++;
 		}
-		Upgrade_set_recv_timer(TIMEOUT_1S);
+		Upgrade_set_recv_timer(TIMEOUT_100ms);
 	}
 }
 
@@ -834,7 +876,7 @@ void UPgrade_xmodem_retry_timer_deal(void)
 			// 传输成功，进入等待CRC校验状态
 			Upgrade_set_retry_timer(3 * TIMEOUT_1S);
 			Upgrade_set_retry_count(10);
-			Upgrade_set_recv_timer(TIMEOUT_1S);
+			Upgrade_set_recv_timer(0);
 			G_upgrade_sub.status = UPGRADE_STATUS_CRC_CEHCK;
 			break;
 		
@@ -965,6 +1007,18 @@ void Upgrade_loop_2ms(void)
 	}
 }
 
+
+unsigned char Upgrade_is_rebooting(void)
+{
+	if ((G_upgrade_sub.status == UPGRADE_STATUS_REBOOT) || 
+		(G_upgrade_sub.status == UPGRADE_STATUS_JUMP_APP))
+	{
+		return 1;
+	}
+	return 0;
+}
+
+
 /*****************************************************************
 Upgrade_init:
 	在线升级的初始化函数，读取数据中的标志位，来判断当前的状态
@@ -1022,7 +1076,7 @@ unsigned char Upgrade_init(void)
 	}
 	else if (upgrade_flag == CMD_UPGRADE_SUCCESS)
 	{// 进入强制升级
-		Upgrade_set_retry_timer(2 * TIMEOUT_1S);
+		Upgrade_set_retry_timer(TIMEOUT_1S);
 		Upgrade_set_retry_count(1);
 		Upgrade_set_recv_timer(0);
 		Upgrade_send_pow_on();

@@ -43,12 +43,12 @@ struct CONFIG_BAUD
 
 // ¶¨Ê±Æ÷
 #define TIMEOUT_1S		500
-#define TIMEOUT_10ms	5
+#define TIMEOUT_100ms	50
 #define RETRY_COUNT		10
 
 unsigned char Upgrade_init(void);
 void Upgrade_data_deal(unsigned char data);
 void Upgrade_loop_2ms(void);
-
+unsigned char Upgrade_is_rebooting(void);
 #endif
 
