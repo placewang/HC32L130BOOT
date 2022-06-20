@@ -108,8 +108,7 @@ int main(void)
 				{
 					LED0_TOGGLE();
 				}
-			}
-			
+			}	
 			Upgrade_loop_2ms();
 		}
 	}

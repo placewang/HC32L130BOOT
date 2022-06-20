@@ -6,7 +6,7 @@ Xmodem协议
 　　说明：
 　　SOH 帧的开头字节，代表信息包中的第一个字节
 　　信息包序号： 对 256 取模所得到当前包号，第一个信息包的序号为 1
-　　而信息包序号范围 0~255
+　　而信息包序号范围0~255
 　　信息包序号的反码： 当前信息包号的反码
 　　数据区段： 数据区段的长度固定为 128 字节，其内容没有任何限制，可以是文本数据或二进制数据
 　　算术校验和： 1字节的算术校验和，只对数据区段计算后对 256 取模而得
@@ -57,35 +57,35 @@ Xmodem协议
 #define UPGRADE_STATUS_REBOOT			      0x06	// 定时器超时后，系统重启
 #define UPGRADE_STATUS_JUMP_APP			    0x07	// 定时器 超时后，跳转到APP
 
-// Xmodem传输的状态机，目前只支持标准的协议，还不支持扩展协议
-// 接收数据，保存到FLASH_APP_BACKUP_START_ADDRESS的地址中
-#define XMODEM_STATUS_IDLE				    0x00	// 空状态
-#define XMODEM_STATUS_NAK_WAIT_DATA		0x01	// 发送NAK等待数据状态
-#define XMODEM_STATUS_ACK_WAIT_DATA		0x02	// 发送ACK等待数据状态
-#define XMODEM_STATUS_RECV_DATA			  0x03	// 接收数据包状态，1s超时为收包结束
-#define XMODEM_STATUS_CANCEL			    0x04	// 取消传输
-#define XMODEM_STATUS_SUCCESS			    0x05	// 传输完成
+//Xmodem传输的状态机，目前只支持标准的协议，还不支持扩展协议
+//接收数据，保存到FLASH_APP_BACKUP_START_ADDRESS的地址中
+#define XMODEM_STATUS_IDLE				      0x00	// 空状态
+#define XMODEM_STATUS_NAK_WAIT_DATA		  0x01	// 发送NAK等待数据状态
+#define XMODEM_STATUS_ACK_WAIT_DATA		  0x02	// 发送ACK等待数据状态
+#define XMODEM_STATUS_RECV_DATA			    0x03	// 接收数据包状态，1s超时为收包结束
+#define XMODEM_STATUS_CANCEL			      0x04	// 取消传输
+#define XMODEM_STATUS_SUCCESS			      0x05	// 传输完成
 
-unsigned int G_flash_data[128];	  // 保存的当前需要写到的FLASH中的数据
+unsigned int G_flash_data[128];	              //保存的当前需要写到的FLASH中的数据
 
 struct UPGRADE_SUB
 {
-	unsigned char status;				    // 当前状态
-	unsigned char retry_count;			// 剩余的重试次数，每次减
-	unsigned short retry_timer;			// 重试计时器，每次减
-	unsigned short recv_timer;			// 数据接收计时器，超时后认为一包结束，每次减
+	unsigned char status;				       // 当前状态
+	unsigned char retry_count;			   // 剩余的重试次数，每次减
+	unsigned short retry_timer;			   // 重试计时器，每次减
+	unsigned short recv_timer;			   // 数据接收计时器，超时后认为一包结束，每次减
 	
-	unsigned char rx_buf[256];			// 接收到的包
-	unsigned char rx_buf_len;			  // 当前的接收长度
+	unsigned char rx_buf[256];			   // 接收到的包
+	unsigned char rx_buf_len;			     // 当前的接收长度
 	
 	// xmodem协议相关
-	unsigned char xmodem_status;		// xmodem传输的状态机
-	unsigned int flash_address;			// 当前操作的flash地址
-	unsigned int flash_max_address;	// 当前操作的最大flash地址
-	unsigned int *flash_data_p;			// 当前收到的flash数据，每一个扇区512字节
-	unsigned short flash_data_len;	// 当前收到的flash数据长度
-	unsigned int recv_all_data_len;	// 收到的数据总长度
-	unsigned char next_sq;				  // 下一个包的序号
+	unsigned char  xmodem_status;		   // xmodem传输的状态机
+	unsigned int   flash_address;			 // 当前操作的flash地址
+	unsigned int   flash_max_address;	 // 当前操作的最大flash地址
+	unsigned int   *flash_data_p;			 // 当前收到的flash数据，每一个扇区512字节
+	unsigned short flash_data_len;	   // 当前收到的flash数据长度
+	unsigned int   recv_all_data_len;	 // 收到的数据总长度
+	unsigned char  next_sq;				     // 下一个包的序号
 }__attribute__((packed));
 
 struct UPGRADE_SUB G_upgrade_sub;
@@ -145,11 +145,11 @@ void Upgrade_wirte_word_carefull(unsigned int address, unsigned int data)
 	int i;
 	unsigned int read_data;
 	
-	for (i = 0; i < 5; i++)
+	for(i = 0; i < 5; i++)
 	{
 		Flash_WriteWord(address, data);
 		read_data = FLASH_u32_read((unsigned int *)address);
-		if (read_data == data)
+		if(read_data == data)
 		{
 			break;
 		}
@@ -167,7 +167,7 @@ unsigned short CRC16Check(unsigned char* buf, unsigned int len)
 
 	for (i = 2; i < len; i++)
 	{
-		temp = FLASH_read(buf + i);;
+		temp = FLASH_read(buf + i);
 		for (j = 8; j > 0; j--)
 		{
 			if ((usCRCReg & 0x8000) != 0)
@@ -175,7 +175,7 @@ unsigned short CRC16Check(unsigned char* buf, unsigned int len)
 				usCRCReg <<= 1;
 				if (((temp >> (j - 1)) & 0x01) != 0)
 					usCRCReg |= 0x0001;
-				usCRCReg ^= 0x1021;
+					usCRCReg ^= 0x1021;
 			}
 			else
 			{
@@ -1064,8 +1064,9 @@ unsigned char Upgrade_init(void)
 		G_upgrade_sub.status = UPGRADE_STATUS_REBOOT;
 	}
 	else if (upgrade_flag == CMD_UPGRADE_BURN)
-	{// 数据搬移阶段外中断，重新拷贝数据，可以直接跳转APP
-		// 拷贝数据
+	{ 		
+		//数据搬移阶段外中断，重新拷贝数据，可以直接跳转APP
+		//拷贝数据
 		Upgrade_cope_flash_to_app();
 		
 		// 拷贝完数据，准备重启
@@ -1076,7 +1077,8 @@ unsigned char Upgrade_init(void)
 		G_upgrade_sub.status = UPGRADE_STATUS_REBOOT;
 	}
 	else if (upgrade_flag == CMD_UPGRADE_SUCCESS)
-	{// 进入强制升级
+	{
+		// 进入强制升级
 		Upgrade_set_retry_timer(TIMEOUT_1S);
 		Upgrade_set_retry_count(1);
 		Upgrade_set_recv_timer(0);
@@ -1090,8 +1092,7 @@ unsigned char Upgrade_init(void)
 		Upgrade_set_recv_timer(0);
 		Upgrade_send_upgrade_start();
 		G_upgrade_sub.status = UPGRADE_STATUS_UPGRADE_START;
-	}
-	
+	}	
 	return 0;
 }
 

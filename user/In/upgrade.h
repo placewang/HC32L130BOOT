@@ -4,7 +4,7 @@
 #define DEFAULT_BAUD_RATE				        115200//12500
 
 #define MAX_FLASH_ADDRESS				        0x0000FFFF	// 内部FLASH总大小，64K
-#define FLASH_BYTES_PER_SECTOR			    512			// 每个扇区的FLASH大小
+#define FLASH_BYTES_PER_SECTOR			    512			    // 每个扇区的FLASH大小
 // FLASH 地址定义
 #define FLASH_BOOT_START_ADDRESS		    0x00000000	// BOOT的起始地址，22个扇区
 #define FLASH_BOOT_STOP_ADDRESS			    0x00002BFF	// BOOT的结束地址
@@ -50,5 +50,6 @@ unsigned char Upgrade_init(void);
 void Upgrade_data_deal(unsigned char data);
 void Upgrade_loop_2ms(void);
 unsigned char Upgrade_is_rebooting(void);
+
 #endif
 

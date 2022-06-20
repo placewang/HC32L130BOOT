@@ -63,8 +63,7 @@ void Uart0_send_msg(unsigned char *data_p, unsigned char len)
 	if ((data_p == NULL) || (len == 0))
 	{
 		return;
-	}
-	
+	}	
 	for (i = 0; i < len; i++)
 	{
 		G_uart0_sub.tx_buf[G_uart0_sub.tx_buf_wr] = *data_p;
