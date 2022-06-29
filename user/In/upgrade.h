@@ -1,7 +1,7 @@
 #ifndef _UPGRADE_H_
 #define _UPGRADE_H_
 
-#define DEFAULT_BAUD_RATE				        115200//12500
+#define DEFAULT_BAUD_RATE				        12500
 
 #define MAX_FLASH_ADDRESS				        0x0000FFFF	// 内部FLASH总大小，64K
 #define FLASH_BYTES_PER_SECTOR			    512			    // 每个扇区的FLASH大小
@@ -17,7 +17,7 @@
 
 // 来自APP的配置信息
 #define CONFIG_BAUD_RATE_ADDRESS		    0x0000FC64	// 波特率配置数据
-#define UPGRADE_FLAG_ADDRESS			      0x0000FE00	// 升级标志，boot需要修改
+#define UPGRADE_FLAG_ADDRESS			      0x00003100	// 升级标志，boot需要修改
 
 struct CONFIG_BAUD
 {
