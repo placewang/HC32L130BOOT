@@ -454,6 +454,11 @@
               <FileType>1</FileType>
               <FilePath>..\driver\src\gpio.c</FilePath>
             </File>
+            <File>
+              <FileName>wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\driver\src\wdt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

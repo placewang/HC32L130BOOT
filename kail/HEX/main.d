@@ -21,3 +21,4 @@
 .\hex\main.o: ..\driver\inc\flash.h
 .\hex\main.o: ..\driver\inc\gpio.h
 .\hex\main.o: ..\user\In\upgrade.h
+.\hex\main.o: ..\driver\inc\wdt.h

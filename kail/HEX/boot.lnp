@@ -11,6 +11,7 @@
 ".\hex\bt.o"
 ".\hex\uart.o"
 ".\hex\gpio.o"
+".\hex\wdt.o"
 ".\hex\main.o"
 --strict --scatter ".\HEX\boot.sct"
 --keep=*Handler --summary_stderr --info summarysizes --map --xref --callgraph --symbols

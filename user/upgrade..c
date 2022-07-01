@@ -66,6 +66,8 @@ Xmodem协议
 #define XMODEM_STATUS_CANCEL			      0x04	// 取消传输
 #define XMODEM_STATUS_SUCCESS			      0x05	// 传输完成
 
+#define CRC_CHAR_FLAG   (('C'<<0)|('R'<<8)|('C'<<16)|(0x10<<24))
+
 unsigned int G_flash_data[128];	              //保存的当前需要写到的FLASH中的数据
 
 struct UPGRADE_SUB
@@ -206,9 +208,14 @@ Upgrade_get_baud_rate:
 ******************************************************************/
 unsigned int Upgrade_get_baud_rate(void)
 {
-	struct CONFIG_BAUD *config_baud_p;
-	config_baud_p = (struct CONFIG_BAUD *)CONFIG_BAUD_RATE_ADDRESS;
-	return config_baud_p->baud_rate;
+//	struct CONFIG_BAUD *config_baud_p;
+	uint32_t bd=0;
+//	config_baud_p = (struct CONFIG_BAUD *)CONFIG_BAUD_RATE_ADDRESS;
+	bd |=(*(volatile uint8_t*)(CONFIG_BAUD_RATE_ADDRESS+2))<<24;
+	bd |=(*(volatile uint8_t*)(CONFIG_BAUD_RATE_ADDRESS+3))<<16;
+	bd |=(*(volatile uint8_t*)(CONFIG_BAUD_RATE_ADDRESS+4))<<8;
+	bd |=(*(volatile uint8_t*)(CONFIG_BAUD_RATE_ADDRESS+5));
+	return bd;
 }
 
 /*****************************************************************
@@ -347,6 +354,12 @@ Upgrade_sector_write:
 unsigned short Upgrade_file_crc_check(unsigned short len)
 {
 	unsigned char *backup_address_p;
+	unsigned char  *Packend_CRCaddress;
+	Packend_CRCaddress=(unsigned char *)(FLASH_APP_BACKUP_START_ADDRESS+len-6);
+	if(Packend_CRCaddress[0]=='C'&&Packend_CRCaddress[1]=='R'&&Packend_CRCaddress[2]=='C'&&Packend_CRCaddress[3]==0x10)
+	{
+		len=len-6;
+	}
 	backup_address_p = (unsigned char *)FLASH_APP_BACKUP_START_ADDRESS;
 	return CRC16Check(backup_address_p, len);
 }
@@ -653,37 +666,35 @@ void Upgrade_message_deal(void)
 					(G_upgrade_sub.rx_buf[2] == 0x78) &&
 					(G_upgrade_sub.rx_buf[7] == 0xA5))
 				{// 收到回应，开始升级
-					if ((G_upgrade_sub.rx_buf[3] == 0x11) &&
-						(G_upgrade_sub.rx_buf[4] == 0x22) &&
-						(G_upgrade_sub.rx_buf[5] == 0x33) &&
-						(G_upgrade_sub.rx_buf[6] == 0x44))
-					{
-						// 设置标志位，开始拷贝
-						Upgrade_update_upgrade_flag(CMD_UPGRADE_BURN);
-						// 拷贝数据
-						Upgrade_cope_flash_to_app();
+//					if ((G_upgrade_sub.rx_buf[3] == 0x11) &&
+//						(G_upgrade_sub.rx_buf[4] == 0x22) &&
+//						(G_upgrade_sub.rx_buf[5] == 0x33) &&
+//						(G_upgrade_sub.rx_buf[6] == 0x44))
+//					{
+//						// 设置标志位，开始拷贝
+//						Upgrade_update_upgrade_flag(CMD_UPGRADE_BURN);
+//						// 拷贝数据
+//						Upgrade_cope_flash_to_app();
+//						
+//						// 拷贝完数据，准备重启
+//						Upgrade_update_upgrade_flag(CMD_UPGRADE_SUCCESS);
+//						Upgrade_send_upgrade_result(0);
+//						Upgrade_set_retry_timer(TIMEOUT_1S);
+//						Upgrade_set_retry_count(1);
+//						G_upgrade_sub.status = UPGRADE_STATUS_REBOOT;
+//						break;
+//					}
+					
+						file_bytes = G_upgrade_sub.rx_buf[3];
+						file_bytes = file_bytes << 8;
+						file_bytes += G_upgrade_sub.rx_buf[4];
 						
-						// 拷贝完数据，准备重启
-						Upgrade_update_upgrade_flag(CMD_UPGRADE_SUCCESS);
-						Upgrade_send_upgrade_result(0);
-						Upgrade_set_retry_timer(TIMEOUT_1S);
-						Upgrade_set_retry_count(1);
-						G_upgrade_sub.status = UPGRADE_STATUS_REBOOT;
-						break;
-					}
-					
-					file_bytes = G_upgrade_sub.rx_buf[3];
-					file_bytes = file_bytes << 8;
-					file_bytes += G_upgrade_sub.rx_buf[4];
-					
-					recv_check = G_upgrade_sub.rx_buf[5];
-					recv_check = recv_check << 8;
-					recv_check += G_upgrade_sub.rx_buf[6];
-					
-					
-					my_check = Upgrade_file_crc_check(file_bytes);
+						recv_check = G_upgrade_sub.rx_buf[5];
+						recv_check = recv_check << 8;
+						recv_check += G_upgrade_sub.rx_buf[6];
+						my_check = Upgrade_file_crc_check(file_bytes);
 					if (my_check != recv_check)
-					{// 校验失败
+					{ // 校验失败
 						Upgrade_send_upgrade_result(1);
 						Upgrade_set_retry_timer(TIMEOUT_1S);
 						Upgrade_set_retry_count(1);

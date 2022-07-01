@@ -125,7 +125,7 @@ void Uart0_init(uint32_t br)
 	Uart_ClrStatus(M0P_UART0,UartRC);                       //清接收请求
 	//    Uart_ClrStatus(M0P_UART0,UartTC);                 //清发送收请求
 	Uart_EnableIrq(M0P_UART0,UartRxIrq);                    //使能串口接收中断
-	//    Uart_EnableIrq(M0P_UART0,UartTxIrq);              //使能串口发送收中断
+	//Uart_EnableIrq(M0P_UART0,UartTxIrq);              //使能串口发送收中断
 	EnableNvic(UART0_IRQn, IrqLevel0, TRUE);                //系统中断使能
 	
 	Uart0_buf_init();
