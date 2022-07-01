@@ -32,7 +32,7 @@ struct CONFIG_BAUD
 #define CMD_UPGRADE_START				  0xA050AA00	// 启动升级的标志
 #define CMD_UPGRADE_RCVDATA				0xA050AA55	// 接收升级数据标志
 #define CMD_UPGRADE_BURN				  0xA0505A5A	// 搬运数据标志
-#define CMD_UPGRADE_SUCCESS				0xAA55AA55	// 升级完成标志
+#define CMD_UPGRADE_SUCCESS				0x55AA55AA	// 升级完成标志
 
 // Xmodem的控制字符定义
 #define XMODEM_CMD_SOH			0x01		// 数据，回复ACK表示发送下一个包，回复NAK表示重发，回复CAN表示停止传输

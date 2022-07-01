@@ -93,9 +93,7 @@ int main(void)
 	unsigned short led_count = 0;
 	Systimeclk();
 	Bsp_Init();
-
 	Upgrade_init();
-	
 	Wdt_Init(WdtResetEn, WdtT3s28);															//WDT ≥ı ºªØ	
 	Wdt_Start();
 	Wdt_Feed(); 

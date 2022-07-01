@@ -66,7 +66,6 @@ Xmodem协议
 #define XMODEM_STATUS_CANCEL			      0x04	// 取消传输
 #define XMODEM_STATUS_SUCCESS			      0x05	// 传输完成
 
-#define CRC_CHAR_FLAG   (('C'<<0)|('R'<<8)|('C'<<16)|(0x10<<24))
 
 unsigned int G_flash_data[128];	              //保存的当前需要写到的FLASH中的数据
 
@@ -1063,6 +1062,7 @@ unsigned char Upgrade_init(void)
 		Upgrade_set_retry_timer(3 * TIMEOUT_1S);
 		Upgrade_set_retry_count(10);
 		Upgrade_set_recv_timer(0);
+		Upgrade_send_upgrade_start();
 		Upgrade_send_upgrade_start();
 		G_upgrade_sub.status = UPGRADE_STATUS_UPGRADE_START;
 	}

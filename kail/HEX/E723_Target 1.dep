@@ -74,8 +74,8 @@ I (..\mcu\common\interrupts_hc32l13x.h)(0x5D131A92)
 I (..\user\In\ddl_device.h)(0x5F560CC6)
 I (..\driver\inc\gpio.h)(0x5D11EFDC)
 I (..\user\In\bsp_uart.h)(0x62A19DD2)
-I (..\user\In\upgrade.h)(0x62BD1E46)
-F (..\user\upgrade..c)(0x62BE733E)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\upgrade..o --omf_browse .\hex\upgrade..crf --depend .\hex\upgrade..d)
+I (..\user\In\upgrade.h)(0x62BEC49E)
+F (..\user\upgrade..c)(0x62BED8A1)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\upgrade..o --omf_browse .\hex\upgrade..crf --depend .\hex\upgrade..d)
 I (..\user\In\bsp_uart.h)(0x62A19DD2)
 I (..\driver\inc\ddl.h)(0x5D131F3A)
 I (..\mcu\common\base_types.h)(0x5D11C242)
@@ -93,7 +93,7 @@ I (..\mcu\common\system_hc32l13x.h)(0x628B123E)
 I (..\driver\inc\sysctrl.h)(0x5D130326)
 I (..\mcu\common\interrupts_hc32l13x.h)(0x5D131A92)
 I (..\user\In\ddl_device.h)(0x5F560CC6)
-I (..\user\In\upgrade.h)(0x62BD1E46)
+I (..\user\In\upgrade.h)(0x62BEC49E)
 I (..\driver\inc\flash.h)(0x5D142E9E)
 F (..\driver\src\sysctrl.c)(0x5ECCF922)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\sysctrl.o --omf_browse .\hex\sysctrl.crf --depend .\hex\sysctrl.d)
 I (..\driver\inc\sysctrl.h)(0x5D130326)
@@ -219,7 +219,7 @@ I (..\mcu\common\system_hc32l13x.h)(0x628B123E)
 I (..\driver\inc\sysctrl.h)(0x5D130326)
 I (..\mcu\common\interrupts_hc32l13x.h)(0x5D131A92)
 I (..\user\In\ddl_device.h)(0x5F560CC6)
-F (..\main\main.c)(0x62BE6782)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\main.o --omf_browse .\hex\main.crf --depend .\hex\main.d)
+F (..\main\main.c)(0x62BEE140)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\main.o --omf_browse .\hex\main.crf --depend .\hex\main.d)
 I (..\user\In\bsp_time.h)(0x629F42CC)
 I (..\driver\inc\ddl.h)(0x5D131F3A)
 I (..\mcu\common\base_types.h)(0x5D11C242)
@@ -240,5 +240,5 @@ I (..\user\In\ddl_device.h)(0x5F560CC6)
 I (..\user\In\bsp_uart.h)(0x62A19DD2)
 I (..\driver\inc\flash.h)(0x5D142E9E)
 I (..\driver\inc\gpio.h)(0x5D11EFDC)
-I (..\user\In\upgrade.h)(0x62BD1E46)
+I (..\user\In\upgrade.h)(0x62BEC49E)
 I (..\driver\inc\wdt.h)(0x5D12DF58)
