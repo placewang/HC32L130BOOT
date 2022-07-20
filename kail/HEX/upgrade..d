@@ -19,3 +19,4 @@
 .\hex\upgrade..o: ..\user\In\ddl_device.h
 .\hex\upgrade..o: ..\user\In\upgrade.h
 .\hex\upgrade..o: ..\driver\inc\flash.h
+.\hex\upgrade..o: ..\driver\inc\gpio.h

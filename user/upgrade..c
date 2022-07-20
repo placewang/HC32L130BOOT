@@ -46,7 +46,7 @@ Xmodem协议
 #include "bsp_uart.h"
 #include "upgrade.h"
 #include "flash.h"
-
+#include "gpio.h"
 // 升级状态定义
 #define UPGRADE_STATUS_IDLE				      0x00	// 空状态
 #define UPGRADE_STATUS_POWON			      0x01	// 上电完成状态，发送上电完成，等待回复，进入强制升级；超时则进入APP
@@ -1065,6 +1065,7 @@ unsigned char Upgrade_init(void)
 		Upgrade_send_upgrade_start();
 		Upgrade_send_upgrade_start();
 		G_upgrade_sub.status = UPGRADE_STATUS_UPGRADE_START;
+		Backlight_ON();
 	}
 	else if (upgrade_flag == CMD_UPGRADE_RCVDATA)
 	{// 数据接收阶段意外中断，可以直接跳转APP
