@@ -640,6 +640,7 @@ void Upgrade_message_deal(void)
 			break;
 		
 		case UPGRADE_STATUS_UPGRADE_START:	// 发送升级消息，等待回应
+			Backlight_ON();
 			if (G_upgrade_sub.rx_buf_len >= 4)
 			{
 				if ((G_upgrade_sub.rx_buf[0] == 0x5A) &&
@@ -655,6 +656,7 @@ void Upgrade_message_deal(void)
 			break;
 		
 		case UPGRADE_STATUS_XMODEM:			// 进入XMODEM模式
+			Backlight_ON();
 			break;
 		
 		case UPGRADE_STATUS_CRC_CEHCK:		// CRC校验
@@ -712,6 +714,7 @@ void Upgrade_message_deal(void)
 						Upgrade_set_retry_timer(TIMEOUT_1S);
 						Upgrade_set_retry_count(1);
 						G_upgrade_sub.status = UPGRADE_STATUS_REBOOT;
+						Backlight_ON();
 					}
 				}
 			}
@@ -1065,7 +1068,7 @@ unsigned char Upgrade_init(void)
 		Upgrade_send_upgrade_start();
 		Upgrade_send_upgrade_start();
 		G_upgrade_sub.status = UPGRADE_STATUS_UPGRADE_START;
-		Backlight_ON();
+
 	}
 	else if (upgrade_flag == CMD_UPGRADE_RCVDATA)
 	{// 数据接收阶段意外中断，可以直接跳转APP

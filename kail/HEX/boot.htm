@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\HEX\boot.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\HEX\boot.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Thu Jul 21 13:34:32 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Wed Aug 10 10:25:53 2022
 <BR><P>
 <H3>Maximum Stack Usage =        120 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -602,7 +602,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_init
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_message_deal
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_init
 </UL>
@@ -1223,11 +1223,10 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_init
 </UL>
 
-<P><STRONG><a name="[c4]"></a>Upgrade_init</STRONG> (Thumb, 256 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_init))
+<P><STRONG><a name="[c4]"></a>Upgrade_init</STRONG> (Thumb, 248 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = Upgrade_init &rArr; Uart0_init &rArr; Uart_Init &rArr; Uart_EnableFunc &rArr; SetBit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_update_upgrade_flag
+<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_update_upgrade_flag
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_timer
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_count
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_recv_timer
@@ -1255,10 +1254,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 </UL>
 
-<P><STRONG><a name="[a2]"></a>Upgrade_message_deal</STRONG> (Thumb, 318 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_message_deal))
+<P><STRONG><a name="[a2]"></a>Upgrade_message_deal</STRONG> (Thumb, 342 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_message_deal))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Upgrade_message_deal &rArr; Upgrade_cope_flash_to_app &rArr; Upgrade_sector_write &rArr; Upgrade_wirte_word_carefull &rArr; Flash_WriteWord
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_update_upgrade_flag
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_start_xmodem
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_timer
