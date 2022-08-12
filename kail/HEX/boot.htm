@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\HEX\boot.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\HEX\boot.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Wed Aug 10 10:25:53 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060300: Last Updated: Fri Aug 12 14:54:36 2022
 <BR><P>
 <H3>Maximum Stack Usage =        120 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -570,7 +570,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UPgrade_retry_timer_deal
+<LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_init
 </UL>
 
@@ -603,6 +604,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetBit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_message_deal
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_init
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 <LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Led_init
 </UL>
@@ -665,9 +667,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Led_init &rArr; Gpio_SetIO &rArr; SetBit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_Init
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_SetPeripheralGate
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 </UL>
 <BR>[Called By]<UL><LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Bsp_Init
 </UL>
@@ -739,12 +741,12 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SetBit
 </UL>
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_EnableIrq
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_ClrStatus
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_Init
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_SetPeripheralGate
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Uart_EnableFunc
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 </UL>
 
 <P><STRONG><a name="[a]"></a>SysTick_Handler</STRONG> (Thumb, 8 bytes, Stack size 8 bytes, interrupts_hc32l13x.o(i.SysTick_Handler))
@@ -911,11 +913,11 @@ Global Symbols
 <P><STRONG><a name="[8c]"></a>Systimeclk</STRONG> (Thumb, 130 bytes, Stack size 16 bytes, main.o(i.Systimeclk))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = Systimeclk &rArr; Sysctrl_ClkInit &rArr; Sysctrl_SysClkSwitch &rArr; SystemCoreClockUpdate &rArr; Sysctrl_GetHClkFreq &rArr; __ARM_common_switch8
 </UL>
-<BR>[Calls]<UL><LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_GetPClkFreq
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay1ms
+<LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_GetPClkFreq
 <LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_SetPeripheralGate
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_GetHClkFreq
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Flash_WaitCycle
-<LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay1ms
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_XTHDriverCfg
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_SysClkSwitch
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Sysctrl_SetXTHStableTime
@@ -1025,10 +1027,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_loop_2ms
 </UL>
 
-<P><STRONG><a name="[a3]"></a>UPgrade_retry_timer_deal</STRONG> (Thumb, 266 bytes, Stack size 8 bytes, upgrade..o(i.UPgrade_retry_timer_deal))
-<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = UPgrade_retry_timer_deal &rArr; UPgrade_xmodem_retry_timer_deal &rArr; __ARM_common_switch8
+<P><STRONG><a name="[a3]"></a>UPgrade_retry_timer_deal</STRONG> (Thumb, 280 bytes, Stack size 8 bytes, upgrade..o(i.UPgrade_retry_timer_deal))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = UPgrade_retry_timer_deal &rArr; Gpio_ClrIO &rArr; SetBit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
+<BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay1ms
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_common_switch8
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_timer
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_count
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_send_upgrade_start
@@ -1223,10 +1227,11 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_init
 </UL>
 
-<P><STRONG><a name="[c4]"></a>Upgrade_init</STRONG> (Thumb, 248 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_init))
+<P><STRONG><a name="[c4]"></a>Upgrade_init</STRONG> (Thumb, 256 bytes, Stack size 16 bytes, upgrade..o(i.Upgrade_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = Upgrade_init &rArr; Uart0_init &rArr; Uart_Init &rArr; Uart_EnableFunc &rArr; SetBit
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_update_upgrade_flag
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_update_upgrade_flag
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_timer
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_retry_count
 <LI><a href="#[ab]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_set_recv_timer
@@ -1559,13 +1564,15 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Systimeclk
+<BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UPgrade_retry_timer_deal
+<LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Systimeclk
 </UL>
 
 <P><STRONG><a name="[4f]"></a>$Super$$main</STRONG> (Thumb, 126 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = $Super$$main &rArr; Upgrade_init &rArr; Uart0_init &rArr; Uart_Init &rArr; Uart_EnableFunc &rArr; SetBit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_SetIO
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_loop_2ms
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_is_rebooting
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Upgrade_init
@@ -1576,7 +1583,6 @@ Global Symbols
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wdt_Init
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Wdt_Feed
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_GetInputIO
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Gpio_ClrIO
 </UL>
 <BR>[Called By]<UL><LI><a href="#[3a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>

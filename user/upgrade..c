@@ -963,10 +963,12 @@ void UPgrade_retry_timer_deal(void)
 			break;
 		
 		case UPGRADE_STATUS_REBOOT:			// 定时器超时后，系统重启
+			delay1ms(5*1000);
 			NVIC_SystemReset();
 			break;
 		
 		case UPGRADE_STATUS_JUMP_APP:		// 定时器 超时后，跳转到APP
+			Backlight_OFF();
 			GoApp();
 			break;
 		
@@ -1062,6 +1064,7 @@ unsigned char Upgrade_init(void)
 	
 	if (upgrade_flag == CMD_UPGRADE_START)
 	{// 启动升级流程，发送升级应答
+		Backlight_ON();
 		Upgrade_set_retry_timer(3 * TIMEOUT_1S);
 		Upgrade_set_retry_count(10);
 		Upgrade_set_recv_timer(0);

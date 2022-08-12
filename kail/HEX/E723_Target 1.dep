@@ -75,7 +75,7 @@ I (..\user\In\ddl_device.h)(0x5F560CC6)
 I (..\driver\inc\gpio.h)(0x5D11EFDC)
 I (..\user\In\bsp_uart.h)(0x62D80653)
 I (..\user\In\upgrade.h)(0x62D80653)
-F (..\user\upgrade..c)(0x62F31620)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\upgrade..o --omf_browse .\hex\upgrade..crf --depend .\hex\upgrade..d)
+F (..\user\upgrade..c)(0x62F5F926)(--c99 -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\driver\inc -I ..\mcu\common -I ..\user\In-IC:\Users\admin\Desktop\E723Boot\kail\RTE-IE:\kail\ARM\PACK\ARM\CMSIS\5.0.1\CMSIS\Include-IE:\kail\ARM\PACK\HDSC\HC32L136\1.0.0\Device\Include-D__UVISION_VERSION="521" -D_RTE_ -DNDEBUG-o .\hex\upgrade..o --omf_browse .\hex\upgrade..crf --depend .\hex\upgrade..d)
 I (..\user\In\bsp_uart.h)(0x62D80653)
 I (..\driver\inc\ddl.h)(0x5D131F3A)
 I (..\mcu\common\base_types.h)(0x5D11C242)
